@@ -14,11 +14,16 @@ class WeatherViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
 
-    func fetchWeather() async {
+    func fetchWeather(latitude: Double, longitude: Double) async {
         isLoading = true
         errorMessage = nil
         
-        let url = URL(string: "https://api.open-meteo.com/v1/forecast?latitude=30.0444&longitude=31.2357&current_weather=true")!
+        let urlString = "https://api.open-meteo.com/v1/forecast?latitude=\(latitude)&longitude=\(longitude)&current_weather=true"
+        
+        guard let url = URL(string: urlString) else {
+            errorMessage = "Invalid URL"
+            return
+        }
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
@@ -31,4 +36,5 @@ class WeatherViewModel: ObservableObject {
         
         isLoading = false
     }
+
 }
