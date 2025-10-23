@@ -36,6 +36,9 @@ struct WeatherView: View {
                 VStack(spacing: 8) {
                     Text("Temperature: \(temp, specifier: "%.1f")°C")
                         .animation(.easeInOut(duration: 0.4), value: viewModel.temperature)
+                    Text(viewModel.condition)
+                        .font(.title2)
+                        .animation(.easeInOut(duration: 0.4), value: viewModel.condition)
                     Text("Wind Speed: \(viewModel.windspeed ?? 0, specifier: "%.1f") km/h")
                         .font(.subheadline)
                         .foregroundColor(.gray)

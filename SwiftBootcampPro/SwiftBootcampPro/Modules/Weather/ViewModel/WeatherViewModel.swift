@@ -13,6 +13,7 @@ class WeatherViewModel: ObservableObject {
     @Published var windspeed: Double?
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var condition: String = "Sunny"
 
     func fetchWeather(latitude: Double, longitude: Double) async {
         isLoading = true
@@ -31,6 +32,11 @@ class WeatherViewModel: ObservableObject {
             let response = try JSONDecoder().decode(WeatherResponse.self, from: data)
             temperature = response.current_weather.temperature
             windspeed = response.current_weather.windspeed
+            let conditions = ["Sunny", "Rainy", "Cloudy", "Windy"]
+            let randomCondition = conditions.randomElement() ?? "Sunny"
+            
+            // Automatically updates UI because of @Published
+            self.condition = randomCondition
         } catch {
             errorMessage = error.localizedDescription
         }
