@@ -35,9 +35,11 @@ struct WeatherView: View {
             } else if let temp = viewModel.temperature {
                 VStack(spacing: 8) {
                     Text("Temperature: \(temp, specifier: "%.1f")°C")
+                        .animation(.easeInOut(duration: 0.4), value: viewModel.temperature)
                     Text("Wind Speed: \(viewModel.windspeed ?? 0, specifier: "%.1f") km/h")
                         .font(.subheadline)
                         .foregroundColor(.gray)
+                        .animation(.easeInOut(duration: 0.4), value: viewModel.windspeed)
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
@@ -57,6 +59,12 @@ struct WeatherView: View {
         .task {
             let coords = cities[selectedCity]!
             await viewModel.fetchWeather(latitude: coords.0, longitude: coords.1)
+        }
+        .onChange(of: selectedCity) { newCity in
+            let coords = cities[newCity]!
+            Task {
+                await viewModel.fetchWeather(latitude: coords.0, longitude: coords.1)
+            }
         }
     }
 }
