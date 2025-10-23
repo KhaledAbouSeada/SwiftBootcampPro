@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad
+*.xcworkspace
+xcuserdata/
+
+# Swift Package Manager
+.build/
+Packages/
+.swiftpm/
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+playground.xcuserstate
